@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>I got you</title>
+<style>
+body { min-width: 200px; }
+body div {
+width: 500px;
+margin: 0 auto;
+background: #ccc;
+}
+
+#tab {
+width: 100%;
+height: 25px;
+background: #FE6;
+
+}
+
+.mobile {
+  width: 100%;
+  height: 25px;
+  background: red;
+  cursor: pointer;
+}
+
+.desktop {
+  width: 33.1%;
+  float: left;
+  background-color: yellow;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+
+  body { background: #333; }
+  body div { width: 100%; }
+
+  .mobile { display: block; }
+  #tab, .desktop { display: none; }
+}
+
+@media screen and (min-width: 768px) {
+  .mobile { display: none; }
+}
+
+.content { display: none; }
+</style>
+</head>
+<body>
+
+  <div>
+    <div id=tab>
+      <div id=b1 class=desktop>B1</div>
+      <div id=b2 class=desktop>B2</div>
+      <div id=b3 class=desktop>B3</div>
+    </div>
+
+    <div id=b1 class=mobile>B1</div>
+    <div id=b1_content class='content current_on' style='display: block'><h3>B1 Content goes here</h3></div>
+
+    <div id=b2 class=mobile>B2</div>
+    <div id=b2_content class=content><h3>B2 Content goes here</h3></div>
+
+    <div id=b3 class=mobile>B3</div>
+    <div id=b3_content class=content><h3>B3 Content goes here</h3></div>
+
+  </div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+  window.onresize = function() {
+    if(window.innerWidth >= 768) { $('.content').hide(); $('.current_on').show(); }
+  }
+
+  $(function() {
+    $('.desktop, .mobile').on('click', function(e) {
+      var previous_on = $('.current_on').removeClass('current_on');
+      var current_on = $('#' +e.currentTarget.id+ '_content');
+      current_on.addClass('current_on');
+
+      if(e.currentTarget.className == 'mobile') {
+        $('#' +e.currentTarget.id+ '_content').slideToggle('slow');
+      } else {
+        previous_on.hide();
+        current_on.fadeIn();
+      }
+    });
+  });
+</script>
+</body>
+</html>
